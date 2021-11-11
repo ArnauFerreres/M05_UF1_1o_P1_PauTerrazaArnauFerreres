@@ -117,6 +117,10 @@ void Start() {
             run = false;
             break;
         }
+        if (personaje_x_new < 0) {
+            personaje_x_new = CONSOLE_WIDTH - 1;
+        }
+        personaje_x_new %= CONSOLE_WIDTH;
         if (ConsoleScreen[personaje_y_new][personaje_x_new] == MAP_TILES::WALL) {
             personaje_y_new = personaje_y;
             personaje_x_new = personaje_x;
