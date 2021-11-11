@@ -13,7 +13,7 @@ void Inputs();
 void Start();
 void Logica();
 
-enum MAP_TILES {EMPTY = ' ', WALL = '#', POINT = '*' };
+enum MAP_TILES {EMPTY = ' ', WALL = '#', POINT = 'Ñ' };
 enum USER_INPUTS {NONE, UP, DOWN, RIGHT, LEFT, QUIT};
 
 MAP_TILES ConsoleScreen[CONSOLE_HEIGHT][CONSOLE_WIDTH];
@@ -57,12 +57,17 @@ void Start() {
                 else {
                     ConsoleScreen[i][j] = MAP_TILES::EMPTY;
                 }
-            }
+            } 
         }
         ConsoleScreen[2][0] = MAP_TILES::EMPTY;
         ConsoleScreen[3][0] = MAP_TILES::EMPTY;
         ConsoleScreen[2][CONSOLE_WIDTH-1] = MAP_TILES::EMPTY;
         ConsoleScreen[3][CONSOLE_WIDTH-1] = MAP_TILES::EMPTY;
+        ConsoleScreen[2][2] = MAP_TILES::POINT;
+        map_points++;
+        ConsoleScreen[2][5] = MAP_TILES::POINT;
+        map_points++;
+
     }
     void Inputs() {
         char input_raw;
@@ -117,6 +122,10 @@ void Start() {
             run = false;
             break;
         }
+        if (personaje_x_new < 0) {
+            personaje_x_new = CONSOLE_WIDTH - 1;
+        }
+        personaje_x_new %= CONSOLE_WIDTH;
         if (ConsoleScreen[personaje_y_new][personaje_x_new] == MAP_TILES::WALL) {
             personaje_y_new = personaje_y;
             personaje_x_new = personaje_x;
