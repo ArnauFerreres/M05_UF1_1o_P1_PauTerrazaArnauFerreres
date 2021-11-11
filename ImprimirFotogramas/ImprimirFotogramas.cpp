@@ -59,16 +59,10 @@ void Start() {
                 }
             }
         }
-        ConsoleScreen[2][1] = MAP_TILES::POINT;
-        map_points++;
-        ConsoleScreen[2][1] = MAP_TILES::POINT;
-        map_points++;
-        ConsoleScreen[2][2] = MAP_TILES::POINT;
-        map_points++;
-        ConsoleScreen[2][3] = MAP_TILES::POINT;
-        map_points++;
-        ConsoleScreen[2][4] = MAP_TILES::POINT;
-        map_points++;
+        ConsoleScreen[2][0] = MAP_TILES::EMPTY;
+        ConsoleScreen[3][0] = MAP_TILES::EMPTY;
+        ConsoleScreen[2][CONSOLE_WIDTH-1] = MAP_TILES::EMPTY;
+        ConsoleScreen[3][CONSOLE_WIDTH-1] = MAP_TILES::EMPTY;
     }
     void Inputs() {
         char input_raw;
