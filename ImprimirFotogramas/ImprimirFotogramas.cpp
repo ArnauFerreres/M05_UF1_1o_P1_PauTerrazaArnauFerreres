@@ -13,12 +13,14 @@ void Inputs();
 void Start();
 void Logica();
 
-enum MAP_TILES {EMPTY = ' ', WALL = '#', POINT = '-' };
+enum MAP_TILES {EMPTY = ' ', WALL = '#', POINT = '*' };
 enum USER_INPUTS {NONE, UP, DOWN, RIGHT, LEFT, QUIT};
 
 MAP_TILES ConsoleScreen[CONSOLE_HEIGHT][CONSOLE_WIDTH];
+int map_points = 0;
 char personaje = 'O';
 int personaje_x = 59;
+int personaje_puntos = 0;
 int personaje_y = 14;
 USER_INPUTS input = USER_INPUTS::NONE;
 bool run = true;
@@ -26,7 +28,8 @@ bool run = true;
 
 int main(){
 
-    Start();
+    RellenarMapa();
+    ImprimirPantalla();
     while (run)
     {
         Inputs();
@@ -56,6 +59,10 @@ void Start() {
                 }
             }
         }
+        ConsoleScreen[2][0] = MAP_TILES::EMPTY;
+        ConsoleScreen[3][0] = MAP_TILES::EMPTY;
+        ConsoleScreen[2][CONSOLE_WIDTH-1] = MAP_TILES::EMPTY;
+        ConsoleScreen[3][CONSOLE_WIDTH-1] = MAP_TILES::EMPTY;
     }
     void Inputs() {
         char input_raw;
@@ -113,6 +120,11 @@ void Start() {
         if (ConsoleScreen[personaje_y_new][personaje_x_new] == MAP_TILES::WALL) {
             personaje_y_new = personaje_y;
             personaje_x_new = personaje_x;
+        }
+        else if (ConsoleScreen[personaje_y_new][personaje_x_new] == MAP_TILES::POINT) {
+            map_points--;
+            personaje_puntos++;
+            ConsoleScreen[personaje_y_new][personaje_x_new] = MAP_TILES::EMPTY;
         }
         personaje_y = personaje_y_new;
         personaje_x = personaje_x_new;
