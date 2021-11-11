@@ -63,11 +63,14 @@ void Start() {
         ConsoleScreen[3][0] = MAP_TILES::EMPTY;
         ConsoleScreen[2][CONSOLE_WIDTH-1] = MAP_TILES::EMPTY;
         ConsoleScreen[3][CONSOLE_WIDTH-1] = MAP_TILES::EMPTY;
-        ConsoleScreen[2][2] = MAP_TILES::POINT;
+        ConsoleScreen[4][12] = MAP_TILES::POINT;
         map_points++;
-        ConsoleScreen[2][5] = MAP_TILES::POINT;
+        ConsoleScreen[4][15] = MAP_TILES::POINT;
         map_points++;
-
+        ConsoleScreen[4][14] = MAP_TILES::POINT;
+        map_points++;
+        ConsoleScreen[4][17] = MAP_TILES::POINT;
+        map_points++;
     }
     void Inputs() {
         char input_raw;
