@@ -74,11 +74,33 @@ void Start() {
         ConsoleScreen[3][CONSOLE_WIDTH-1] = MAP_TILES::EMPTY;
         ConsoleScreen[4][12] = MAP_TILES::BOLA;
         map_points++;
-        ConsoleScreen[4][15] = MAP_TILES::BOLA;
+        ConsoleScreen[6][15] = MAP_TILES::BOLA;
         map_points++;
-        ConsoleScreen[4][14] = MAP_TILES::BOLA;
+        ConsoleScreen[20][14] = MAP_TILES::BOLA;
         map_points++;
-        ConsoleScreen[4][17] = MAP_TILES::BOLA;
+        ConsoleScreen[12][17] = MAP_TILES::BOLA;
+        map_points++;
+        ConsoleScreen[14][17] = MAP_TILES::BOLA;
+        map_points++;
+        ConsoleScreen[21][8] = MAP_TILES::BOLA;
+        map_points++;
+        ConsoleScreen[17][14] = MAP_TILES::BOLA;
+        map_points++;
+        ConsoleScreen[20][100] = MAP_TILES::BOLA;
+        map_points++;
+        ConsoleScreen[27][17] = MAP_TILES::BOLA;
+        map_points++;
+        ConsoleScreen[24][56] = MAP_TILES::BOLA;
+        map_points++;
+        ConsoleScreen[3][70] = MAP_TILES::BOLA;
+        map_points++;
+        ConsoleScreen[9][69] = MAP_TILES::BOLA;
+        map_points++;
+        ConsoleScreen[25][96] = MAP_TILES::BOLA;
+        map_points++;
+        ConsoleScreen[26][13] = MAP_TILES::BOLA;
+        map_points++;
+        ConsoleScreen[2][110] = MAP_TILES::BOLA;
         map_points++;
     }
     void Inputs() {
