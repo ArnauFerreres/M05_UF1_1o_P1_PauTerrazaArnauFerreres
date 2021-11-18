@@ -2,6 +2,7 @@
 //
 
 #include <iostream>
+#include <conio.h>
 using namespace std;
 #define CONSOLE_HEIGHT 29
 #define CONSOLE_WIDTH 119
@@ -12,6 +13,7 @@ void RellenarMapa();
 void Inputs();
 void Start();
 void Logica();
+void ImprimirScore();
 
 enum MAP_TILES {EMPTY = ' ', WALL = '#', POINT = 'Ñ' };
 enum USER_INPUTS {NONE, UP, DOWN, RIGHT, LEFT, QUIT};
@@ -23,24 +25,30 @@ int personaje_x = 59;
 int personaje_puntos = 0;
 int personaje_y = 14;
 USER_INPUTS input = USER_INPUTS::NONE;
+enum MAP_TITLES mapa[29][119];
 bool run = true;
+int score = 0;
 
 
 int main(){
 
     RellenarMapa();
     ImprimirPantalla();
+    ImprimirScore();
     while (run)
     {
         Inputs();
         Logica();
         ImprimirPantalla();
+        ImprimirScore();
+        
     }
 }
 void Start() {
     
         RellenarMapa();
         ImprimirPantalla();
+        
     }
 
     void RellenarMapa(){
@@ -140,7 +148,13 @@ void Start() {
         }
         personaje_y = personaje_y_new;
         personaje_x = personaje_x_new;
+        
+        if (mapa[personaje_y][personaje_x] == MAP_TILES::POINT) {
+            mapa[personaje_y][personaje_x] = MAP_TILES::EMPTY;
+            score++;
+        }
     }
+    
 
     void ImprimirPantalla(){
 
@@ -161,8 +175,12 @@ void Start() {
         }
         cout << endl;
     }
+    
+    
 }
-
+    void ImprimirScore() {
+        cout << "Score: " << score;
+    }
 // Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar
 // Depurar programa: F5 o menú Depurar > Iniciar depuración
 
