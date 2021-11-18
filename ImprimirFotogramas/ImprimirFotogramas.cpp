@@ -81,8 +81,8 @@ void Start() {
         map_points++;
     }
     void Inputs() {
-        char input_raw;
-        cin >> input_raw;
+        char input_raw = _getch();
+        //cin >> input_raw;
         switch (input_raw)
         {
             case 'W':
@@ -106,6 +106,7 @@ void Start() {
                 run = false;
                 break;
             default:
+                input = USER_INPUTS::NONE;
                 break;
 
         }
