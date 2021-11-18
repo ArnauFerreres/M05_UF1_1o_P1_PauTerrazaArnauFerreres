@@ -83,6 +83,13 @@ void Start() {
         ConsoleScreen[16][CONSOLE_WIDTH - 1] = MAP_TILES::EMPTY;
         ConsoleScreen[17][CONSOLE_WIDTH - 1] = MAP_TILES::EMPTY;
         ConsoleScreen[18][CONSOLE_WIDTH - 1] = MAP_TILES::EMPTY;
+
+        ConsoleScreen[0][58] = MAP_TILES::EMPTY;
+        ConsoleScreen[0][59] = MAP_TILES::EMPTY;
+        ConsoleScreen[CONSOLE_HEIGHT - 1][58] = MAP_TILES::EMPTY;
+        ConsoleScreen[CONSOLE_HEIGHT - 1][59] = MAP_TILES::EMPTY;
+
+
         ConsoleScreen[4][12] = MAP_TILES::BOLA;
         map_points++;
         ConsoleScreen[6][15] = MAP_TILES::BOLA;
@@ -181,8 +188,14 @@ void Start() {
         }
         if (personaje_x_new < 0) {
             personaje_x_new = CONSOLE_WIDTH - 1;
+
+        }
+        else if (personaje_y_new < 0)
+        {
+            personaje_y_new = CONSOLE_HEIGHT - 1;
         }
         personaje_x_new %= CONSOLE_WIDTH;
+        personaje_y_new %= CONSOLE_HEIGHT;
         if (ConsoleScreen[personaje_y_new][personaje_x_new] == MAP_TILES::WALL) {
             personaje_y_new = personaje_y;
             personaje_x_new = personaje_x;
