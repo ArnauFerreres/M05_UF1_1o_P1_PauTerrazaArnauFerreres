@@ -27,7 +27,7 @@ int personaje_y = 14;
 USER_INPUTS input = USER_INPUTS::NONE;
 enum MAP_TITLES mapa[29][119];
 bool run = true;
-
+int score = 0;
 
 
 int main(){
@@ -149,7 +149,10 @@ void Start() {
         personaje_y = personaje_y_new;
         personaje_x = personaje_x_new;
         
-      
+        /*if (mapa[personaje_y][personaje_x] == MAP_TILES::POINT) {
+            mapa[personaje_y][personaje_x] = MAP_TILES::EMPTY;
+            score++;
+        }*/
     }
     
 
