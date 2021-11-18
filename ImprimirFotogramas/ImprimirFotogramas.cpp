@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <conio.h>
+#include <windows.h>
 using namespace std;
 #define CONSOLE_HEIGHT 29
 #define CONSOLE_WIDTH 119
@@ -14,8 +15,9 @@ void Inputs();
 void Start();
 void Logica();
 void ImprimirScore();
+void LimpiarPantalla();
 
-enum MAP_TILES {EMPTY = ' ', WALL = '#', POINT = 'Ñ' };
+enum MAP_TILES {EMPTY = ' ', WALL = '#', BOLA = 'u' };
 enum USER_INPUTS {NONE, UP, DOWN, RIGHT, LEFT, QUIT};
 
 MAP_TILES ConsoleScreen[CONSOLE_HEIGHT][CONSOLE_WIDTH];
@@ -33,21 +35,20 @@ bool run = true;
 int main(){
 
     RellenarMapa();
-    ImprimirPantalla();
-    ImprimirScore();
     while (run)
     {
         Inputs();
         Logica();
+        LimpiarPantalla();
         ImprimirPantalla();
         ImprimirScore();
+  
         
     }
 }
 void Start() {
     
         RellenarMapa();
-        ImprimirPantalla();
         
     }
 
@@ -71,13 +72,13 @@ void Start() {
         ConsoleScreen[3][0] = MAP_TILES::EMPTY;
         ConsoleScreen[2][CONSOLE_WIDTH-1] = MAP_TILES::EMPTY;
         ConsoleScreen[3][CONSOLE_WIDTH-1] = MAP_TILES::EMPTY;
-        ConsoleScreen[4][12] = MAP_TILES::POINT;
+        ConsoleScreen[4][12] = MAP_TILES::BOLA;
         map_points++;
-        ConsoleScreen[4][15] = MAP_TILES::POINT;
+        ConsoleScreen[4][15] = MAP_TILES::BOLA;
         map_points++;
-        ConsoleScreen[4][14] = MAP_TILES::POINT;
+        ConsoleScreen[4][14] = MAP_TILES::BOLA;
         map_points++;
-        ConsoleScreen[4][17] = MAP_TILES::POINT;
+        ConsoleScreen[4][17] = MAP_TILES::BOLA;
         map_points++;
     }
     void Inputs() {
@@ -112,6 +113,10 @@ void Start() {
         }
 
     }
+    void LimpiarPantalla()
+    {
+        COORD cursorPosition; cursorPosition.X = 0; cursorPosition.Y = 0; SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cursorPosition);
+    }
 
     void Logica() {
         int personaje_y_new = personaje_y;
@@ -133,6 +138,8 @@ void Start() {
         case QUIT:
             run = false;
             break;
+        case NONE:
+            break;
         }
         if (personaje_x_new < 0) {
             personaje_x_new = CONSOLE_WIDTH - 1;
@@ -142,7 +149,7 @@ void Start() {
             personaje_y_new = personaje_y;
             personaje_x_new = personaje_x;
         }
-        else if (ConsoleScreen[personaje_y_new][personaje_x_new] == MAP_TILES::POINT) {
+        else if (ConsoleScreen[personaje_y_new][personaje_x_new] == MAP_TILES::BOLA) {
             map_points--;
             personaje_puntos++;
             ConsoleScreen[personaje_y_new][personaje_x_new] = MAP_TILES::EMPTY;
@@ -154,10 +161,7 @@ void Start() {
     }
     
 
-    void ImprimirPantalla(){
-
-        system("CLS");
-
+    void ImprimirPantalla(){  
     for (int i = 0; i < CONSOLE_HEIGHT; i++)
     {
         for (int j = 0; j < CONSOLE_WIDTH; j++)
@@ -177,7 +181,7 @@ void Start() {
     
 }
     void ImprimirScore() {
-        cout << "Score: " << personaje_puntos;
+        cout << "Score: " << personaje_puntos<<" ";
     }
 // Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar
 // Depurar programa: F5 o menú Depurar > Iniciar depuración
