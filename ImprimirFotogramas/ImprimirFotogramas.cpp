@@ -8,7 +8,6 @@ using namespace std;
 #define CONSOLE_HEIGHT 29
 #define CONSOLE_WIDTH 119
 
-
 void ImprimirPantalla();
 void RellenarMapa();
 void Inputs();
@@ -17,7 +16,7 @@ void Logica();
 void ImprimirScore();
 void LimpiarPantalla();
 
-enum MAP_TILES {EMPTY = ' ', WALL = '#', BOLA = 'u' };
+enum MAP_TILES {EMPTY = ' ', WALL = 'ò', BOLA = '+' };
 enum USER_INPUTS {NONE, UP, DOWN, RIGHT, LEFT, QUIT};
 
 MAP_TILES ConsoleScreen[CONSOLE_HEIGHT][CONSOLE_WIDTH];
@@ -68,10 +67,22 @@ void Start() {
                 }
             } 
         }
-        ConsoleScreen[2][0] = MAP_TILES::EMPTY;
-        ConsoleScreen[3][0] = MAP_TILES::EMPTY;
-        ConsoleScreen[2][CONSOLE_WIDTH-1] = MAP_TILES::EMPTY;
-        ConsoleScreen[3][CONSOLE_WIDTH-1] = MAP_TILES::EMPTY;
+        ConsoleScreen[8][0] = MAP_TILES::EMPTY;
+        ConsoleScreen[9][0] = MAP_TILES::EMPTY;
+        ConsoleScreen[10][0] = MAP_TILES::EMPTY;
+        ConsoleScreen[11][0] = MAP_TILES::EMPTY;
+        ConsoleScreen[15][0] = MAP_TILES::EMPTY;
+        ConsoleScreen[16][0] = MAP_TILES::EMPTY;
+        ConsoleScreen[17][0] = MAP_TILES::EMPTY;
+        ConsoleScreen[18][0] = MAP_TILES::EMPTY;
+        ConsoleScreen[8][CONSOLE_WIDTH-1] = MAP_TILES::EMPTY;
+        ConsoleScreen[9][CONSOLE_WIDTH-1] = MAP_TILES::EMPTY;
+        ConsoleScreen[10][CONSOLE_WIDTH - 1] = MAP_TILES::EMPTY;
+        ConsoleScreen[11][CONSOLE_WIDTH - 1] = MAP_TILES::EMPTY;
+        ConsoleScreen[15][CONSOLE_WIDTH - 1] = MAP_TILES::EMPTY;
+        ConsoleScreen[16][CONSOLE_WIDTH - 1] = MAP_TILES::EMPTY;
+        ConsoleScreen[17][CONSOLE_WIDTH - 1] = MAP_TILES::EMPTY;
+        ConsoleScreen[18][CONSOLE_WIDTH - 1] = MAP_TILES::EMPTY;
         ConsoleScreen[4][12] = MAP_TILES::BOLA;
         map_points++;
         ConsoleScreen[6][15] = MAP_TILES::BOLA;
@@ -110,22 +121,27 @@ void Start() {
         {
             case 'W':
             case 'w':
+            case 'H':
                 input = USER_INPUTS::UP;
                 break;
             case 'S':
             case 's':
+            case 'P':
                 input = USER_INPUTS::DOWN;
                 break;
             case 'D':
             case 'd':
+            case 'M':
                 input = USER_INPUTS::RIGHT;
                 break;
             case 'A':
             case 'a':
+            case 'K':
                 input = USER_INPUTS::LEFT;
                 break;
             case 'Q':
             case 'q':
+            case 27:
                 run = false;
                 break;
             default:
