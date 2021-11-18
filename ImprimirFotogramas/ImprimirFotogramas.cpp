@@ -2,18 +2,21 @@
 //
 
 #include <iostream>
+#include <conio.h>
+#include <windows.h>
 using namespace std;
 #define CONSOLE_HEIGHT 29
 #define CONSOLE_WIDTH 119
-
 
 void ImprimirPantalla();
 void RellenarMapa();
 void Inputs();
 void Start();
 void Logica();
+void ImprimirScore();
+void LimpiarPantalla();
 
-enum MAP_TILES {EMPTY = ' ', WALL = '#', POINT = '*' };
+enum MAP_TILES {EMPTY = ' ', WALL = 'ò', BOLA = '+' };
 enum USER_INPUTS {NONE, UP, DOWN, RIGHT, LEFT, QUIT};
 
 MAP_TILES ConsoleScreen[CONSOLE_HEIGHT][CONSOLE_WIDTH];
@@ -23,24 +26,29 @@ int personaje_x = 59;
 int personaje_puntos = 0;
 int personaje_y = 14;
 USER_INPUTS input = USER_INPUTS::NONE;
+enum MAP_TITLES mapa[29][119];
 bool run = true;
+
 
 
 int main(){
 
     RellenarMapa();
-    ImprimirPantalla();
     while (run)
     {
         Inputs();
         Logica();
+        LimpiarPantalla();
         ImprimirPantalla();
+        ImprimirScore();
+  
+        
     }
 }
 void Start() {
     
         RellenarMapa();
-        ImprimirPantalla();
+        
     }
 
     void RellenarMapa(){
@@ -57,43 +65,95 @@ void Start() {
                 else {
                     ConsoleScreen[i][j] = MAP_TILES::EMPTY;
                 }
-            }
+            } 
         }
-        ConsoleScreen[2][0] = MAP_TILES::EMPTY;
-        ConsoleScreen[3][0] = MAP_TILES::EMPTY;
-        ConsoleScreen[2][CONSOLE_WIDTH-1] = MAP_TILES::EMPTY;
-        ConsoleScreen[3][CONSOLE_WIDTH-1] = MAP_TILES::EMPTY;
+        ConsoleScreen[8][0] = MAP_TILES::EMPTY;
+        ConsoleScreen[9][0] = MAP_TILES::EMPTY;
+        ConsoleScreen[10][0] = MAP_TILES::EMPTY;
+        ConsoleScreen[11][0] = MAP_TILES::EMPTY;
+        ConsoleScreen[15][0] = MAP_TILES::EMPTY;
+        ConsoleScreen[16][0] = MAP_TILES::EMPTY;
+        ConsoleScreen[17][0] = MAP_TILES::EMPTY;
+        ConsoleScreen[18][0] = MAP_TILES::EMPTY;
+        ConsoleScreen[8][CONSOLE_WIDTH-1] = MAP_TILES::EMPTY;
+        ConsoleScreen[9][CONSOLE_WIDTH-1] = MAP_TILES::EMPTY;
+        ConsoleScreen[10][CONSOLE_WIDTH - 1] = MAP_TILES::EMPTY;
+        ConsoleScreen[11][CONSOLE_WIDTH - 1] = MAP_TILES::EMPTY;
+        ConsoleScreen[15][CONSOLE_WIDTH - 1] = MAP_TILES::EMPTY;
+        ConsoleScreen[16][CONSOLE_WIDTH - 1] = MAP_TILES::EMPTY;
+        ConsoleScreen[17][CONSOLE_WIDTH - 1] = MAP_TILES::EMPTY;
+        ConsoleScreen[18][CONSOLE_WIDTH - 1] = MAP_TILES::EMPTY;
+        ConsoleScreen[4][12] = MAP_TILES::BOLA;
+        map_points++;
+        ConsoleScreen[6][15] = MAP_TILES::BOLA;
+        map_points++;
+        ConsoleScreen[20][14] = MAP_TILES::BOLA;
+        map_points++;
+        ConsoleScreen[12][17] = MAP_TILES::BOLA;
+        map_points++;
+        ConsoleScreen[14][17] = MAP_TILES::BOLA;
+        map_points++;
+        ConsoleScreen[21][8] = MAP_TILES::BOLA;
+        map_points++;
+        ConsoleScreen[17][14] = MAP_TILES::BOLA;
+        map_points++;
+        ConsoleScreen[20][100] = MAP_TILES::BOLA;
+        map_points++;
+        ConsoleScreen[27][17] = MAP_TILES::BOLA;
+        map_points++;
+        ConsoleScreen[24][56] = MAP_TILES::BOLA;
+        map_points++;
+        ConsoleScreen[3][70] = MAP_TILES::BOLA;
+        map_points++;
+        ConsoleScreen[9][69] = MAP_TILES::BOLA;
+        map_points++;
+        ConsoleScreen[25][96] = MAP_TILES::BOLA;
+        map_points++;
+        ConsoleScreen[26][13] = MAP_TILES::BOLA;
+        map_points++;
+        ConsoleScreen[2][110] = MAP_TILES::BOLA;
+        map_points++;
     }
     void Inputs() {
-        char input_raw;
-        cin >> input_raw;
+        char input_raw = _getch();
+        //cin >> input_raw;
         switch (input_raw)
         {
             case 'W':
             case 'w':
+            case 'H':
                 input = USER_INPUTS::UP;
                 break;
             case 'S':
             case 's':
+            case 'P':
                 input = USER_INPUTS::DOWN;
                 break;
             case 'D':
             case 'd':
+            case 'M':
                 input = USER_INPUTS::RIGHT;
                 break;
             case 'A':
             case 'a':
+            case 'K':
                 input = USER_INPUTS::LEFT;
                 break;
             case 'Q':
             case 'q':
+            case 27:
                 run = false;
                 break;
             default:
+                input = USER_INPUTS::NONE;
                 break;
 
         }
 
+    }
+    void LimpiarPantalla()
+    {
+        COORD cursorPosition; cursorPosition.X = 0; cursorPosition.Y = 0; SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cursorPosition);
     }
 
     void Logica() {
@@ -116,24 +176,30 @@ void Start() {
         case QUIT:
             run = false;
             break;
+        case NONE:
+            break;
         }
+        if (personaje_x_new < 0) {
+            personaje_x_new = CONSOLE_WIDTH - 1;
+        }
+        personaje_x_new %= CONSOLE_WIDTH;
         if (ConsoleScreen[personaje_y_new][personaje_x_new] == MAP_TILES::WALL) {
             personaje_y_new = personaje_y;
             personaje_x_new = personaje_x;
         }
-        else if (ConsoleScreen[personaje_y_new][personaje_x_new] == MAP_TILES::POINT) {
+        else if (ConsoleScreen[personaje_y_new][personaje_x_new] == MAP_TILES::BOLA) {
             map_points--;
             personaje_puntos++;
             ConsoleScreen[personaje_y_new][personaje_x_new] = MAP_TILES::EMPTY;
         }
         personaje_y = personaje_y_new;
         personaje_x = personaje_x_new;
+        
+      
     }
+    
 
-    void ImprimirPantalla(){
-
-        system("CLS");
-
+    void ImprimirPantalla(){  
     for (int i = 0; i < CONSOLE_HEIGHT; i++)
     {
         for (int j = 0; j < CONSOLE_WIDTH; j++)
@@ -149,8 +215,12 @@ void Start() {
         }
         cout << endl;
     }
+    
+    
 }
-
+    void ImprimirScore() {
+        cout << "Score: " << personaje_puntos<<" ";
+    }
 // Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar
 // Depurar programa: F5 o menú Depurar > Iniciar depuración
 
